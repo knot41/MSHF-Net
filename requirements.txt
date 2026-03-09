@@ -1,0 +1,13 @@
+scipy
+tqdm
+torch
+torchvision
+monai
+nibabel
+tensorboard
+scikit-image
+scikit-learn
+pyyaml
+einops
+opencv-python
+SimpleITK
