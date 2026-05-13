@@ -8,4 +8,6 @@ python src/train.py \
     --lr 0.0001 \
     --num_epochs 50 \
     --backbone ResNet50 \
-    --num_classes 2
+    --num_classes 2 \
+    --cv_folds 5 \
+    --seed 42

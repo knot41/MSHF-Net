@@ -8,10 +8,16 @@ import numpy as np
 import cv2
 import torchvision.transforms.functional as F
 import monai.transforms as mt
+from sklearn.model_selection import StratifiedKFold
 
-def split_dataset(clinical_path, ratio=0.8):
+
+def load_clinical_info(clinical_path):
     with open(clinical_path, 'r', encoding='utf-8') as f:
-        clinical_info = json.load(f)
+        return json.load(f)
+
+
+def split_dataset(clinical_path, ratio=0.8, seed=42):
+    clinical_info = load_clinical_info(clinical_path)
 
     dic = defaultdict(list)
     for info in clinical_info:
@@ -19,15 +25,43 @@ def split_dataset(clinical_path, ratio=0.8):
     
     train_info = []
     val_info = []
+    rng = random.Random(seed)
 
     for label, data in dic.items():
-        random.shuffle(data)
+        data = data[:]
+        rng.shuffle(data)
         num_samples = len(data)
         train_num = int(ratio * num_samples)
         train_info.extend(data[:train_num])
         val_info.extend(data[train_num:])
     
     return train_info, val_info
+
+
+def k_fold_split_dataset(clinical_path, n_splits=5, seed=42):
+    clinical_info = load_clinical_info(clinical_path)
+    labels = [info['label'] for info in clinical_info]
+
+    label_counts = defaultdict(int)
+    for label in labels:
+        label_counts[label] += 1
+
+    min_count = min(label_counts.values()) if label_counts else 0
+    if min_count < n_splits:
+        raise ValueError(
+            f"Cannot create {n_splits}-fold stratified splits: "
+            f"the smallest class has only {min_count} samples."
+        )
+
+    skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=seed)
+    splits = []
+    indices = np.arange(len(clinical_info))
+    for train_idx, val_idx in skf.split(indices, labels):
+        train_info = [clinical_info[i] for i in train_idx]
+        val_info = [clinical_info[i] for i in val_idx]
+        splits.append((train_info, val_info))
+
+    return splits
 
 
 class MyDataset(torch.utils.data.Dataset):
