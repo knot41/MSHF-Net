@@ -27,7 +27,7 @@ P-values compare the AUC-best method with the AUC-second-best method using two-s
 
 | Comparison | Acc | F1 | Rec | Pre | AUC |
 |---|---:|---:|---:|---:|---:|
-| ResNet-50 vs DenseNet-121 | 0.0004 (***) | <0.0001 (***) | 0.0009 (***) | <0.0001 (***) | 0.0033 (**) |
+| ResNet-50 vs DenseNet-121 | 0.0607 (ns) | 0.0002 (**) | 0.0145 (*) | <0.0001 (***) | 0.1887 (ns) |
 
 Significance symbols: * p < 0.05, ** p < 0.01, *** p < 0.001, ns not significant.
 
@@ -56,7 +56,7 @@ P-values compare the AUC-best method with the AUC-second-best method using two-s
 
 | Comparison | Acc | F1 | Rec | Pre | AUC |
 |---|---:|---:|---:|---:|---:|
-| MSHF-Net vs MDL-IIA | 0.0027 (**) | <0.0001 (***) | 0.0107 (*) | <0.0001 (***) | 0.0191 (*) |
+| MSHF-Net vs MDL-IIA | 0.0604 (ns) | 0.0042 (**) | 0.0657 (ns) | <0.0001 (***) | 0.0705 (ns) |
 
 Significance symbols: * p < 0.05, ** p < 0.01, *** p < 0.001, ns not significant.
 
@@ -75,7 +75,7 @@ P-values compare the AUC-best method with the AUC-second-best method using two-s
 
 | Comparison | Acc | F1 | Rec | Pre | AUC |
 |---|---:|---:|---:|---:|---:|
-| H-TMF Module vs Attention Fusion | 0.0103 (*) | <0.0001 (***) | 0.7149 (ns) | 0.0049 (**) | 0.0001 (***) |
+| H-TMF Module vs Attention Fusion | 0.0856 (ns) | <0.0278 (**) | 0.5534 (ns) | 0.0334 (*) | 0.2238 (ns) |
 
 Significance symbols: * p < 0.05, ** p < 0.01, *** p < 0.001, ns not significant.
 
@@ -95,7 +95,7 @@ P-values compare the AUC-best modality setting with the AUC-second-best modality
 
 | Comparison | Acc | F1 | Rec | Pre | AUC |
 |---|---:|---:|---:|---:|---:|
-| MG+US+Clinical vs MG+US | 0.0014 (**) | <0.0001 (***) | 0.0516 (ns) | <0.0001 (***) | 0.0032 (**) |
+| MG+US+Clinical vs MG+US | 0.0555 (ns) | 0.1663 (ns) | 0.8243 (ns) | <0.0001 (***) | 0.0253 (*) |
 
 Significance symbols: * p < 0.05, ** p < 0.01, *** p < 0.001, ns not significant.
 
@@ -114,6 +114,6 @@ P-values compare the AUC-best component setting with the AUC-second-best compone
 
 | Comparison | Acc | F1 | Rec | Pre | AUC |
 |---|---:|---:|---:|---:|---:|
-| SGA+CBF Loss vs SGA-only | <0.0001 (***) | <0.0001 (***) | 0.0017 (**) | <0.0001 (***) | 0.0003 (***) |
+| SGA+CBF Loss vs SGA-only | 0.0003 (*) | <0.0001 (***) | 0.0206 (*) | <0.0001 (***) | 0.0064 (**) |
 
 Significance symbols: * p < 0.05, ** p < 0.01, *** p < 0.001, ns not significant.
