@@ -101,6 +101,14 @@ class MyDataset(torch.utils.data.Dataset):
             mt.ToTensor(),
         ])
 
+    def one_hot(self, value, num_classes, feature_name):
+        idx = int(value)
+        if idx < 0 or idx >= num_classes:
+            raise ValueError(f"{feature_name}={value} is outside the expected range [0, {num_classes - 1}].")
+        encoded = [0.0] * num_classes
+        encoded[idx] = 1.0
+        return encoded
+
     def process_mg(self, img_tensor, mask_tensor):
         img_np = img_tensor[0].numpy()
         mask_np = mask_tensor[0].numpy()
@@ -213,9 +221,9 @@ class MyDataset(torch.utils.data.Dataset):
         clinical.append((age - self.age_mean) / self.age_std)
         diameter = self.clinical[self.ids[index]]['tumor_diameter_mm']
         clinical.append((diameter - self.diameter_mean) / self.diameter_std)
-        clinical.append(float(self.clinical[self.ids[index]]['menopause_status']))
-        loc = self.clinical[self.ids[index]]['tumor_location']
-        clinical.append(float(loc))
+        clinical.extend(self.one_hot(self.clinical[self.ids[index]]['menopause_status'], 2, 'menopause_status'))
+        loc = int(self.clinical[self.ids[index]]['tumor_location'])
+        clinical.extend(self.one_hot(loc, 2, 'tumor_location'))
         fiber_map = {'a类': 0, 'b类': 1, 'c类': 2, 'd类': 3}
         fiber_onehot = [0.0] * 4
         fiber_onehot[fiber_map[self.clinical[self.ids[index]]['breast_fiber_type']]] = 1.0

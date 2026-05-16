@@ -142,7 +142,7 @@ class MSHF(nn.Module):
         self.reduce_us  = nn.Sequential(nn.Linear(feature_dim, 256), nn.ReLU(), nn.Dropout(0.2))
 
         self.clinical_net = nn.Sequential(
-            nn.Linear(8, 32),
+            nn.Linear(10, 32),
             nn.LayerNorm(32),
             nn.ReLU(),
             nn.Dropout(0.2)
